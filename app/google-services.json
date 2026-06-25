@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319000196083",
+    "project_id": "com-example-pplapp-b89a7",
+    "storage_bucket": "com-example-pplapp-b89a7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319000196083:android:150ba18a1c6c0f42f9d886",
+        "android_client_info": {
+          "package_name": "com.example.pplapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4Lu0izOt39lnLH2RTIPUVn_Vr6AQv2u4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
