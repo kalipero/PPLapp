@@ -8,7 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.pplapp.data.api.NetworkModule
 import com.example.pplapp.data.api.PplAuthApi
 import com.example.pplapp.data.auth.TokenManager
+import com.example.pplapp.data.model.LocalShipment
+import com.example.pplapp.data.storage.ShipmentStorage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -22,6 +25,16 @@ sealed class HomeUiState {
 class HomeViewModel : ViewModel() {
     private val _uiState = mutableStateOf<HomeUiState>(HomeUiState.Idle)
     val uiState: State<HomeUiState> = _uiState
+
+    val createdShipments: StateFlow<List<LocalShipment>> = ShipmentStorage.shipments
+
+    init {
+        viewModelScope.launch {
+            createdShipments.collect {
+                Log.d("HomeVM", "Shipments updated in VM. New count: ${it.size}")
+            }
+        }
+    }
 
     private val authApi = NetworkModule.createService(PplAuthApi::class.java)
 

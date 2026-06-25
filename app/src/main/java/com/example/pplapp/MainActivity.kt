@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.pplapp.ui.home.HomeScreen
+import com.example.pplapp.ui.shipment.CreateShipmentScreen
 import com.example.pplapp.ui.theme.PPLappTheme
 import com.example.pplapp.ui.tracking.TrackingScreen
 
@@ -31,10 +32,13 @@ class MainActivity : ComponentActivity() {
                 ) {
                     when (currentScreen) {
                         "home" -> HomeScreen(
-                            onCreateShipmentClick = { /* TODO */ },
+                            onCreateShipmentClick = { currentScreen = "shipment" },
                             onTrackShipmentClick = { currentScreen = "tracking" }
                         )
                         "tracking" -> TrackingScreen(
+                            onBackClick = { currentScreen = "home" }
+                        )
+                        "shipment" -> CreateShipmentScreen(
                             onBackClick = { currentScreen = "home" }
                         )
                     }
