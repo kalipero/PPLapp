@@ -6,13 +6,20 @@ data class ShipmentResponse(
     @SerializedName("shipmentNumber")
     val shipmentNumber: String,
     val status: String? = null,
-    val events: List<TrackingEvent> = emptyList()
+    @SerializedName("trackAndTrace")
+    val trackAndTrace: TrackAndTrace? = null
+)
+
+data class TrackAndTrace(
+    @SerializedName("events")
+    val events: List<TrackingEvent>? = emptyList()
 )
 
 data class TrackingEvent(
+    @SerializedName("eventDate")
     val timestamp: String,
     val location: String? = null,
-    val description: String,
-    @SerializedName("statusCode")
+    val name: String,
+    @SerializedName("code")
     val statusCode: String? = null
 )

@@ -104,7 +104,7 @@ fun TrackingScreen(
                         }
                     }
 
-                    val shipment = state.shipments.firstOrNull()
+                    val shipment = state.shipment
                     if (shipment != null) {
                         Text(
                             text = "Stav: ${shipment.status ?: "Neznámý"}",
@@ -115,14 +115,20 @@ fun TrackingScreen(
                         Text(text = "Historie událostí:", style = MaterialTheme.typography.titleMedium)
                         Spacer(modifier = Modifier.height(8.dp))
                         
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(bottom = 16.dp)
-                        ) {
-                            items(shipment.events) { event ->
-                                TrackingEventItem(event)
-                                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                        val events = shipment.trackAndTrace?.events ?: emptyList()
+                        
+                        if (events.isNotEmpty()) {
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                contentPadding = PaddingValues(bottom = 16.dp)
+                            ) {
+                                items(events) { event ->
+                                    TrackingEventItem(event)
+                                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                                }
                             }
+                        } else {
+                            Text(text = "Pro tuto zásilku zatím nejsou žádné události.")
                         }
                     } else {
                         Text(text = "Žádná data pro toto číslo zásilky neexistují.")
@@ -146,6 +152,6 @@ fun TrackingEventItem(event: TrackingEvent) {
             }
         }
         Spacer(modifier = Modifier.height(4.dp))
-        Text(text = event.description, style = MaterialTheme.typography.bodyLarge)
+        Text(text = event.name, style = MaterialTheme.typography.bodyLarge)
     }
 }
